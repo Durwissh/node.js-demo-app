@@ -1,18 +1,13 @@
-# Use Node.js base image
-FROM node:18
+const http = require('http');
 
-# Set working directory
-WORKDIR /usr/src/app
+const PORT = 3000;
 
-# Copy package.json and install dependencies
-COPY package*.json ./
-RUN npm install
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello, World!\n');
+});
 
-# Copy source code
-COPY . .
-
-# Expose app port
-EXPOSE 3000
-
-# Start app
-CMD ["npm", "start"]
+server.listen(PORT, () => {
+  console.log(Server running at http://localhost:${PORT}/);
+});
